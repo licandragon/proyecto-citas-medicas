@@ -12,8 +12,8 @@ function obtenerCitaPorId(id) {
 }
 
 function obtenerCitaPorDoctorId(id) {
-  const citas = obtenerCitas()
-  return citas.find(c => c.doctorId === id);
+  const citas = obtenerCitas();
+  return citas.filter(c => c.doctorId === id);
 }
 
 function citasProximas(){

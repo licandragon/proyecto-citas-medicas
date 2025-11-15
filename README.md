@@ -53,11 +53,11 @@ El servidor en **[http://localhost:3000](http://localhost:3000)**.
 }
 ```
 
-**Respuesta 201:**
+**Respuesta 201** 
 
 ```json
 {
-  "sucess": true,
+  "success": true,
   "message": "Paciente creado exitosamente",
   "data": {
     "id": "P004",
@@ -68,44 +68,60 @@ El servidor en **[http://localhost:3000](http://localhost:3000)**.
   }
 }
 ```
-
+**Respuesta 400** - Error en validaciones
+```json
+{
+  "success": false,
+  "message" : "Datos de telefono o edad no son validos" 
+}
+```
+---
 #### **GET** `/pacientes` - Listar todos los pacientes
 
 **Respuesta 200:**
 
 ```json
 {
-  "sucess": true,
+  "success": true,
   "data": [
     {
-    "id": "P001",
-    "nombre": "María González",
-    "edad": 35,
-    "telefono": "555-0101",
-    "email": "maria.g@email.com",
-    "fechaRegistro": "2025-01-15"
-  },
-  {
-    "id": "P002",
-    "nombre": "Juan Pérez",
-    "edad": 42,
-    "telefono": "555-0202",
-    "email": "juan.perez@email.com",
-    "fechaRegistro": "2025-02-01"
-  },
-  {
-    "id": "P003",
-    "nombre": "Ana López",
-    "edad": 28,
-    "telefono": "555-0303",
-    "email": "ana.lopez@email.com",
-    "fechaRegistro": "2025-03-10"
-  }
+      "id": "P001",
+      "nombre": "María González",
+      "edad": 35,
+      "telefono": "555-0101",
+      "email": "maria.g@email.com",
+      "fechaRegistro": "2025-01-15"
+    },
+    {
+      "id": "P002",
+      "nombre": "Juan Pérez",
+      "edad": 42,
+      "telefono": "555-0202",
+      "email": "juan.perez@email.com",
+      "fechaRegistro": "2025-02-01"
+    }
   ]
 }
 ```
 
 #### **GET** `/pacientes/:id` - Obtener paciente por ID
+
+
+**Repuesta 200**
+
+```json
+{
+  "success": true,
+    "data": {
+        "id": "P003",
+        "nombre": "Ana López",
+        "edad": 28,
+        "telefono": "555-0303",
+        "email": "ana.lopez@email.com",
+        "fechaRegistro": "2025-03-10"
+    }
+}
+```
 
 **Respuesta 404 (no encontrado):**
 
@@ -115,17 +131,10 @@ El servidor en **[http://localhost:3000](http://localhost:3000)**.
   "message": "Paciente no encontrado"
 }
 ```
+---
 
 #### **PUT** `/pacientes/:id` - Actualizar datos del paciente
-
-```json
-{
-  "nombre": "Carlos Pérez López",
-  "edad": 31,
-  "telefono": "5559876543",
-  "email": "carlos@example.com"
-}
-```
+- Datos que se pueden actualizar: nombre, edad, telefono, email
 
 **Respuesta 200:**
 
@@ -138,10 +147,42 @@ El servidor en **[http://localhost:3000](http://localhost:3000)**.
   }
 }
 ```
+
+**Respuesta 404**
+```json
+{
+  "success": false,
+  "message": "Usuario no encontrado",
+}
+```
+---
+
 ### **GET** `/pacientes/:id/historial` - Ver historial de citas del paciente
 ```json
 {
-
+  {
+    "success": true,
+    "data": [
+        {
+            "id": "C003",
+            "pacienteId": "P003",
+            "doctorId": "D002",
+            "fecha": "2025-11-11",
+            "hora": "09:00",
+            "motivo": "Consulta pediátrica",
+            "estado": "programada"
+        },
+        {
+            "id": "C005",
+            "pacienteId": "P003",
+            "doctorId": "D002",
+            "fecha": "2025-12-05",
+            "hora": "10:30",
+            "motivo": "Lunares",
+            "estado": "cancelada"
+        }
+    ]
+}
 }
 ```
 ---
@@ -150,53 +191,174 @@ El servidor en **[http://localhost:3000](http://localhost:3000)**.
 
 #### **POST** `/doctores` - Registrar nuevo doctor
 
+**Respuesta 201** - Registro exitoso
 ```json
 {
-  "nombre": "Dra. Ana Gómez",
-  "especialidad": "Cardiología",
-  "telefono": "5553217890"
+  "success" : true,
+  "mensaje" : "Doctor registrado correctamente", 
+  "data" : {
+    {
+    "id": "D005",
+    "nombre": "Dr. Osvaldo Perez",
+    "especialidad": "Ginecologo",
+    "horarioInicio": "09:00",
+    "horarioFin": "15:00",
+    "diasDisponibles": [
+      "Lunes",
+      "Martes",
+      "Miércoles",
+      "Viernes"
+    ]
+  }
+  }
 }
 ```
+
+**Respuesta 400** - Errores de validacion (ejemplo)
+```json
+{
+  "success": false,
+  "message" : "El doctor ya existe con esa especialidad" 
+}
+```
+
+---
 
 #### **GET** `/doctores` - Listar todos los doctores
+
+**Respuesta 200**
 ```json
 {
-  "sucess": true,
-  "data": [
-    {
-    "id": "P001",
-    "nombre": "María González",
-    "edad": 35,
-    "telefono": "555-0101",
-    "email": "maria.g@email.com",
-    "fechaRegistro": "2025-01-15"
-  },
-  {
-    "id": "P002",
-    "nombre": "Juan Pérez",
-    "edad": 42,
-    "telefono": "555-0202",
-    "email": "juan.perez@email.com",
-    "fechaRegistro": "2025-02-01"
-  },
-  {
-    "id": "P003",
-    "nombre": "Ana López",
-    "edad": 28,
-    "telefono": "555-0303",
-    "email": "ana.lopez@email.com",
-    "fechaRegistro": "2025-03-10"
-  }
-  ]
+    "success": true,
+    "data": [
+        {
+            "id": "D001",
+            "nombre": "Dr. Carlos Méndez",
+            "especialidad": "Cardiología",
+            "horarioInicio": "09:00",
+            "horarioFin": "17:00",
+            "diasDisponibles": [
+                "Lunes",
+                "Martes",
+                "Miércoles",
+                "Jueves",
+                "Viernes"
+            ]
+        },
+        {
+            "id": "D002",
+            "nombre": "Dra. Laura Ruiz",
+            "especialidad": "Pediatría",
+            "horarioInicio": "08:00",
+            "horarioFin": "14:00",
+            "diasDisponibles": [
+                "Lunes",
+                "Miércoles",
+                "Viernes"
+            ]
+        }
+    ]
 }
 ```
-
+---
 #### **GET** `/doctores/:id` - Obtener doctor por ID
 
+**Respuesta 200**
+```json
+{
+    "success": true,
+    "data": {
+        "id": "D001",
+        "nombre": "Dr. Carlos Méndez",
+        "especialidad": "Cardiología",
+        "horarioInicio": "09:00",
+        "horarioFin": "17:00",
+        "diasDisponibles": [
+            "Lunes",
+            "Martes",
+            "Miércoles",
+            "Jueves",
+            "Viernes"
+        ]
+    }
+}
+
+```
+
+
+**Respuesta 404**
+```json
+{
+    "success": false,
+    "message": "Doctor no encontrado"
+}
+```
+---
+
 #### **GET** `/doctores/especialidad/:especialidad` - Buscar doctores por especialidad
+**Respuesta 200**
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "id": "D001",
+            "nombre": "Dr. Carlos Méndez",
+            "especialidad": "Cardiología",
+            "horarioInicio": "09:00",
+            "horarioFin": "17:00",
+            "diasDisponibles": [
+                "Lunes",
+                "Martes",
+                "Miércoles",
+                "Jueves",
+                "Viernes"
+            ]
+        }
+    ]
+}
+```
+---
 
 #### **GET** `/doctores/disponibles?fecha=YYYY-MM-DD&hora=HH:MM` - Buscar doctores dispibles en un horario
 
+**Respuesta 200**
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "id": "D001",
+            "nombre": "Dr. Carlos Méndez",
+            "especialidad": "Cardiología",
+            "horarioInicio": "09:00",
+            "horarioFin": "17:00",
+            "diasDisponibles": [
+                "Lunes",
+                "Martes",
+                "Miércoles",
+                "Jueves",
+                "Viernes"
+            ]
+        }
+    ]
+}
+```
+**Respuesta 400** - Parametros son requierido
+```json
+{
+  "success": false,
+  "message": "Debe proporcionar fecha y hora"
+}
+```
+
+**Respuesta 404** - No disponibles
+```json
+{
+    "success": false,
+    "message": "No hay doctores disponibles en esa fecha y hora"
+}
+```
 
 ---
 
@@ -204,46 +366,156 @@ El servidor en **[http://localhost:3000](http://localhost:3000)**.
 
 #### **POST** `/citas` - Agendar nueva cita
 
-```json
-{
-  "idPaciente": 1,
-  "idDoctor": 2,
-  "fecha": "2025-11-15",
-  "hora": "09:00"
-}
-```
-
 **Respuesta 201:**
 
 ```json
 {
   "success": true,
+  "message" : "La cita se ha creado con exito",
   "data": {
-    "id": 5,
-    "paciente": "Carlos Pérez",
-    "doctor": "Dra. Ana Gómez",
-    "fecha": "2025-11-15",
-    "hora": "09:00"
+    "id": "C005",
+    "pacienteId": "P003",
+    "doctorId": "D002",
+    "fecha": "2025-12-05",
+    "hora": "10:30",
+    "motivo": "Lunares",
+    "estado": "cancelada"
   }
-}
 ```
-
-#### **GET** `/citas` Listar todas las citas (con filtros opcionales por fecha)
-
-#### **GET** `/citas/:id` - Obtener cita por ID
-
-#### **PUT** `/citas/:id/cancelar` Cancelar una cita
-**Respuesta:**
+**Respuesta 400**
 
 ```json
 {
-  "success": true,
-  "message": "Cita cancelada exitosamente"
+  "success" : false,
+  "message" : "Paciente no existe" 
+}
+```
+---
+
+#### **GET** `/citas` Listar todas las citas (con filtros opcionales por fecha)
+Filtros opcionales fecha y/o estado
+`/citas?fecha=YYYY-MM-DD&estado=XXXX`
+
+**Respuesta 200**
+ ```json
+{
+    "success": true,
+    "data": [
+        {
+            "id": "C001",
+            "pacienteId": "P001",
+            "doctorId": "D001",
+            "fecha": "2025-11-10",
+            "hora": "10:00",
+            "motivo": "Revisión general",
+            "estado": "programada"
+        },
+        {
+            "id": "C002",
+            "pacienteId": "P002",
+            "doctorId": "D001",
+            "fecha": "2025-11-10",
+            "hora": "11:00",
+            "motivo": "Dolor en el pecho",
+            "estado": "cancelada"
+        }
+    ]
 }
 ```
 
-### **GET** `/citas/doctor/:doctorId` - Ver agenda de un doctor
+---
 
+#### **GET** `/citas/:id` - Obtener cita por ID
+
+**Respuesta 200**
+ ```json
+{
+    "success": true,
+    "data": {
+        "id": "C001",
+        "pacienteId": "P001",
+        "doctorId": "D001",
+        "fecha": "2025-11-10",
+        "hora": "10:00",
+        "motivo": "Revisión general",
+        "estado": "programada"
+    }
+}
+```
+---
+
+#### **PUT** `/citas/:id/cancelar` Cancelar una cita
+**Respuesta 200**
+```json
+{
+  "success" : true,
+  "message" : "Cita cancelada correctamente"
+}
+```
+**Respuesta 400** - Posible error
+```json
+{
+  "success": false,
+  "message": "Solo se pueden cancelar citas programadas" 
+}
+```
+---
+
+### **GET** `/citas/doctor/:doctorId` - Ver agenda de un doctor
+**Respuesta 200**
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "id": "C001",
+            "pacienteId": "P001",
+            "doctorId": "D001",
+            "fecha": "2025-11-10",
+            "hora": "10:00",
+            "motivo": "Revisión general",
+            "estado": "programada"
+        },
+        {
+            "id": "C002",
+            "pacienteId": "P002",
+            "doctorId": "D001",
+            "fecha": "2025-11-10",
+            "hora": "11:00",
+            "motivo": "Dolor en el pecho",
+            "estado": "programada"
+        }
+    ]
+}
+```
+---
+### **GET** `/notificaciones/proximas` - Se obtienen las citas próximas (siguientes 24 horas)
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "id": "C001",
+            "pacienteId": "P001",
+            "doctorId": "D001",
+            "fecha": "2025-11-10",
+            "hora": "10:00",
+            "motivo": "Revisión general",
+            "estado": "programada"
+        },
+        {
+            "id": "C002",
+            "pacienteId": "P002",
+            "doctorId": "D001",
+            "fecha": "2025-11-10",
+            "hora": "11:00",
+            "motivo": "Dolor en el pecho",
+            "estado": "programada"
+        }
+    ]
+}
+
+```
 
 ---
 

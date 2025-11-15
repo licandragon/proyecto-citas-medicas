@@ -21,14 +21,14 @@ app.post("/pacientes", (req, res) => {
     //Validaciones de Datos
     if (!telefono || edad <= 0) {
         return res.status(400).json({
-            sucess: false,
+            success: false,
             message: "Datos de telefono o edad no son validos" 
         });
     }
 
     if(pacientes.some(p => p.email === email)){
         return res.status(400).json({
-            sucess: false,
+            success: false,
             message: "El email ya está registrado"
         });
     }
@@ -42,7 +42,7 @@ app.post("/pacientes", (req, res) => {
         });
     }
     res.status(201).json({
-        sucess: true,
+        success: true,
         message: "Paciente creado exitosamente",
         data: nuevoPaciente
     });
@@ -53,7 +53,7 @@ app.get("/pacientes", (req, res) => {
     const pacientes = obtenerPacientes();
 
     res.status(200).json({
-        sucess: true,
+        success: true,
         data: pacientes
     });
 });
@@ -67,7 +67,7 @@ app.get("/pacientes/:id", (req, res) => {
         message: "Paciente no encontrado" 
     });
     res.status(200).json({
-        sucess: true,
+        success: true,
         data: paciente
     });
 });
@@ -97,7 +97,7 @@ app.get("/pacientes/:id/historial", (req, res) => {
     const id = req.params.id;
     const historial = historialPaciente(id);
     res.status(200).json({
-        sucess: true,
+        success: true,
         data: historial
     });
 });
@@ -111,21 +111,21 @@ app.post("/doctores", (req, res) => {
     const doctores = obtenerDoctores();
     if (doctores.some(d => d.nombre === nombre && d.especialidad === especialidad)) {
         return res.status(400).json({
-            sucess: false,
+            success: false,
             message:"El doctor ya existe con esa especialidad" 
         });
     }
 
     if (!diasDisponibles || diasDisponibles.length === 0) {
         return res.status(400).json({
-            sucess: false,
+            success: false,
             message:"Debe tener al menos un día disponible" 
         });
     }
 
     if (horarioInicio >= horarioFin) {
         return res.status(400).json({
-            sucess: false,
+            success: false,
             message:"Horario inválido (inicio >= fin)" 
         });
     }
@@ -138,7 +138,7 @@ app.post("/doctores", (req, res) => {
         });
     }
     res.status(201).json({
-        sucess: true,
+        success: true,
         mensaje: "Doctor registrado correctamente", 
         data: nuevoDoctor
     });
@@ -149,7 +149,7 @@ app.get("/doctores", (req, res) => {
     const doctores = obtenerDoctores();
     
     res.status(200).json({
-        sucess: true,
+        success: true,
         data: doctores
     });
 });
@@ -176,7 +176,7 @@ app.get("/doctores/disponibles", (req, res) => {
     }
 
     res.status(200).json({
-        sucess: true,
+        success: true,
         data: doctores
     });
 });
@@ -190,7 +190,7 @@ app.get("/doctores/:id", (req, res) => {
         message: "Doctor no encontrado" 
     });
     res.status(200).json({
-        sucess: true,
+        success: true,
         data: doctor
     });
 });
@@ -200,7 +200,7 @@ app.get("/doctores/especialidad/:especialidad", (req, res) => {
     const especialidad = req.params.especialidad;
     const doctores = obtenerDoctoresPorEspecialidad(especialidad)
     res.status(200).json({
-        sucess: true,
+        success: true,
         data: doctores
     });
 });
@@ -218,13 +218,13 @@ app.post("/citas", (req, res) => {
 
     if (!paciente){ 
         return res.status(404).json({
-            sucess: false,
+            success: false,
             message: "Paciente no existe" 
         });
     }
     if (!doctor) { 
         return res.status(404).json({
-            sucess: false,
+            success: false,
             message: "Doctor no existe" 
         });
     }
@@ -237,7 +237,7 @@ app.post("/citas", (req, res) => {
     
     if (fecha < fechaActual) { 
         return res.status(400).json({
-            sucess: false,
+            success: false,
             message: "La fecha debe ser futura" 
         });
     }
@@ -249,14 +249,14 @@ app.post("/citas", (req, res) => {
     console.log(diaSemana)
     if (!doctor.diasDisponibles.includes(diaSemana)) { 
         return res.status(400).json({
-            sucess: false,
+            success: false,
             message: "El doctor no atiende ese día" 
         });
     }
 
     if (hora < doctor.horarioInicio || hora >= doctor.horarioFin) {
         return res.status(400).json({
-            sucess: false,
+            success: false,
             message:"Hora fuera del horario del doctor" 
         });
     }
@@ -267,7 +267,7 @@ app.post("/citas", (req, res) => {
 
     if (conflicto) { 
         return res.status(400).json({
-            sucess: false,
+            success: false,
             message: "El doctor ya tiene una cita en esa hora" 
         });
     }
@@ -276,13 +276,13 @@ app.post("/citas", (req, res) => {
 
     if(!cita){
         return res.status(404).json({
-            sucess: false,
+            success: false,
             message: "Ah ocurrido un error al guardar la cita"
         });
     }
 
     res.status(201).json({
-        sucess: true,
+        success: true,
         message: "La cita se ha creado con exito",
         data: cita
     });
@@ -296,7 +296,7 @@ app.get("/citas", (req, res) => {
     if (fecha) citas = citas.filter(c => c.fecha === fecha);
     if (estado) citas = citas.filter(c => c.estado === estado);
     res.status(200).json({
-        sucess: true,
+        success: true,
         data: citas,
     });
 });
@@ -310,7 +310,7 @@ app.get("/citas/:id", (req, res) => {
         message: "Cita no encontrada." 
     });
     res.status(200).json({
-        sucess: true,
+        success: true,
         data: cita,
     });
 });
@@ -339,7 +339,7 @@ app.put("/citas/:id/cancelar", (req, res) => {
         });
     }
     res.status(200).json({
-        sucess: true,
+        success: true,
         message: "Cita cancelada correctamente"
     });
 });
@@ -349,7 +349,7 @@ app.get("/citas/doctor/:doctorId", (req, res) => {
     const id = req.params.doctorId;
     const citas = obtenerCitaPorDoctorId(id);
     res.status(200).json({
-        sucess: true,
+        success: true,
         data: citas
     });
 });
@@ -361,7 +361,7 @@ app.get('/notificaciones/proximas',(req, res) => {
     const id = req.params.doctorId;
     const citas = citasProximas();
     res.status(200).json({
-        sucess: true,
+        success: true,
         data: citas
     });
 });

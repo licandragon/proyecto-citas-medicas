@@ -47,18 +47,5 @@
       "Miércoles",
       "Viernes"
     ]
-  },
-  {
-    "id": "D005",
-    "nombre": "Dr. Osvaldo Perez",
-    "especialidad": "Ginecologo",
-    "horarioInicio": "09:00",
-    "horarioFin": "15:00",
-    "diasDisponibles": [
-      "Lunes",
-      "Martes",
-      "Miércoles",
-      "Viernes"
-    ]
   }
 ]

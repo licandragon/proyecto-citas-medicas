@@ -22,26 +22,5 @@
     "telefono": "555-0303",
     "email": "ana.lopez@email.com",
     "fechaRegistro": "2025-03-10"
-  },
-  {
-    "id": "P004",
-    "nombre": "Jose arturo",
-    "telefono": "160-7585",
-    "email": "jose@email.com",
-    "fechaRegistro": "2025-11-12"
-  },
-  {
-    "id": "P005",
-    "nombre": "Brenda Hernandez",
-    "telefono": "555-1085",
-    "email": "brenda@email.com",
-    "fechaRegistro": "2025-11-12"
-  },
-  {
-    "id": "P006",
-    "nombre": "Mario Diaz",
-    "telefono": "515-2235",
-    "email": "Mario.D@email.com",
-    "fechaRegistro": "2025-11-12"
   }
 ]
