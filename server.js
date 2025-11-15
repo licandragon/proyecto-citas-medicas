@@ -10,7 +10,7 @@ const { obtenerPacientes, obtenerPacientePorId, crearPaciente, actualizarPacient
 const { crearDoctor, obtenerDoctores, obtenerDoctorPorId, obtenerDoctoresPorEspecialidad, obtenerDoctoresDisponibles } = require('./utils/doctores');
 const { obtenerCitas, obtenerCitaPorId, agendarCita, cancelarCita, obtenerCitaPorDoctorId, citasProximas } = require('./utils/citas');
 
-//Endpoints Pacientes
+//------------------Endpoints Pacientes------------------------------------------
 
 //Registrar nuevo paciente
 app.post("/pacientes", (req, res) => {
@@ -103,7 +103,7 @@ app.get("/pacientes/:id/historial", (req, res) => {
 });
 
 
-//---------Enpoints Doctores
+//---------------------Enpoints Doctores----------------------------------------
 
 //Registrar nuevo doctor
 app.post("/doctores", (req, res) => {
@@ -207,7 +207,7 @@ app.get("/doctores/especialidad/:especialidad", (req, res) => {
 
 
 
-//----------Endpoint Citas---------------------------------------//
+//-----------------Endpoint Citas---------------------------------------//
 
 // Agendar nueva cita
 app.post("/citas", (req, res) => {
@@ -232,18 +232,18 @@ app.post("/citas", (req, res) => {
     const zonaHoraria = Intl.DateTimeFormat().resolvedOptions().timeZone.toString();
     console.log(zonaHoraria);
 
-    const fechaActual = new Date().toLocaleString("en-US", { timeZone: zonaHoraria }).toString().split(",")[0];
-    console.log(fechaActual)
+    const hoy = new Date(new Date().toLocaleString("en-US", { timeZone: zonaHoraria }));
+    console.log(hoy)
+    const fechaCita = new Date(fecha);
     
-    if (fecha < fechaActual) { 
+    if (fecha < hoy) { 
         return res.status(400).json({
             success: false,
             message: "La fecha debe ser futura" 
         });
     }
 
-    const fechaCita = new Date(fecha);
-    let diaSemana = fechaCita.toLocaleDateString("es-ES", { weekday: "long", timeZone: "UTC"});
+    let diaSemana = fechaCita.toLocaleDateString("es-ES", { weekday: "long", timeZone: zonaHoraria});
     
     diaSemana = diaSemana.charAt(0).toUpperCase() + diaSemana.slice(1);
     console.log(diaSemana)

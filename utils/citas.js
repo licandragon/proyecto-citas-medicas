@@ -52,9 +52,7 @@ function agendarCita(pacienteId, doctorId, fecha, hora, motivo) {
 function cancelarCita(id) {
   const citas = leerJSON(archivo);
   const index = citas.findIndex((c) => c.id === id) ;
-  citas[index].estado = "cancelada"
-
-  
+  citas[index].estado = "cancelada";
   return !escribirJSON(archivo, citas)? false : true;
   
 }
