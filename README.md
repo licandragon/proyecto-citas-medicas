@@ -76,7 +76,7 @@ El servidor en **[http://localhost:3000](http://localhost:3000)**.
 }
 ```
 ---
-#### **GET** `/pacientes` - Listar todos los pacientes
+### **GET** `/pacientes` - Listar todos los pacientes
 
 **Respuesta 200:**
 
@@ -104,7 +104,7 @@ El servidor en **[http://localhost:3000](http://localhost:3000)**.
 }
 ```
 
-#### **GET** `/pacientes/:id` - Obtener paciente por ID
+### **GET** `/pacientes/:id` - Obtener paciente por ID
 
 
 **Repuesta 200**
@@ -133,7 +133,7 @@ El servidor en **[http://localhost:3000](http://localhost:3000)**.
 ```
 ---
 
-#### **PUT** `/pacientes/:id` - Actualizar datos del paciente
+### **PUT** `/pacientes/:id` - Actualizar datos del paciente
 - Datos que se pueden actualizar: nombre, edad, telefono, email
 
 **Respuesta 200:**
@@ -189,7 +189,7 @@ El servidor en **[http://localhost:3000](http://localhost:3000)**.
 
 ### 🩺 Doctores
 
-#### **POST** `/doctores` - Registrar nuevo doctor
+### **POST** `/doctores` - Registrar nuevo doctor
 
 **Respuesta 201** - Registro exitoso
 ```json
@@ -224,7 +224,7 @@ El servidor en **[http://localhost:3000](http://localhost:3000)**.
 
 ---
 
-#### **GET** `/doctores` - Listar todos los doctores
+### **GET** `/doctores` - Listar todos los doctores
 
 **Respuesta 200**
 ```json
@@ -261,7 +261,7 @@ El servidor en **[http://localhost:3000](http://localhost:3000)**.
 }
 ```
 ---
-#### **GET** `/doctores/:id` - Obtener doctor por ID
+### **GET** `/doctores/:id` - Obtener doctor por ID
 
 **Respuesta 200**
 ```json
@@ -295,7 +295,7 @@ El servidor en **[http://localhost:3000](http://localhost:3000)**.
 ```
 ---
 
-#### **GET** `/doctores/especialidad/:especialidad` - Buscar doctores por especialidad
+### **GET** `/doctores/especialidad/:especialidad` - Buscar doctores por especialidad
 **Respuesta 200**
 ```json
 {
@@ -320,7 +320,7 @@ El servidor en **[http://localhost:3000](http://localhost:3000)**.
 ```
 ---
 
-#### **GET** `/doctores/disponibles?fecha=YYYY-MM-DD&hora=HH:MM` - Buscar doctores dispibles en un horario
+### **GET** `/doctores/disponibles?fecha=YYYY-MM-DD&hora=HH:MM` - Buscar doctores dispibles en un horario
 
 **Respuesta 200**
 ```json
@@ -364,7 +364,7 @@ El servidor en **[http://localhost:3000](http://localhost:3000)**.
 
 ### 📅 Citas
 
-#### **POST** `/citas` - Agendar nueva cita
+### **POST** `/citas` - Agendar nueva cita
 
 **Respuesta 201:**
 
@@ -392,7 +392,7 @@ El servidor en **[http://localhost:3000](http://localhost:3000)**.
 ```
 ---
 
-#### **GET** `/citas` Listar todas las citas (con filtros opcionales por fecha)
+### **GET** `/citas` Listar todas las citas (con filtros opcionales por fecha)
 Filtros opcionales fecha y/o estado
 `/citas?fecha=YYYY-MM-DD&estado=XXXX`
 
@@ -425,7 +425,7 @@ Filtros opcionales fecha y/o estado
 
 ---
 
-#### **GET** `/citas/:id` - Obtener cita por ID
+### **GET** `/citas/:id` - Obtener cita por ID
 
 **Respuesta 200**
  ```json
@@ -444,7 +444,7 @@ Filtros opcionales fecha y/o estado
 ```
 ---
 
-#### **PUT** `/citas/:id/cancelar` Cancelar una cita
+### **PUT** `/citas/:id/cancelar` Cancelar una cita
 **Respuesta 200**
 ```json
 {

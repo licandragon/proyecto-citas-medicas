@@ -36,7 +36,7 @@ app.post("/pacientes", (req, res) => {
     //Se crea un nuevo paciente
     const nuevoPaciente = crearPaciente(nombre, edad, telefono, email);
     if (!nuevoPaciente) {
-        return res.status(404).json({
+        return res.status(500).json({
             success: false,
             message: "No se pudo crear el paciente exitosamente",
         });
@@ -51,6 +51,10 @@ app.post("/pacientes", (req, res) => {
 //Listar todos los pacientes
 app.get("/pacientes", (req, res) => {
     const pacientes = obtenerPacientes();
+    if (!pacientes) return res.status(400).json({
+        success: false, 
+        message: "No se han obtienido registro de pacientes." 
+    });
 
     res.status(200).json({
         success: true,
@@ -81,13 +85,13 @@ app.put("/pacientes/:id", (req, res) => {
     if (!actualizado) {
         return res.status(404).json({
             success: false,
-            message: "Usuario no encontrado",
+            message: "Paciente no encontrado",
         });
     }
 
     res.status(200).json({
         success: true,
-        message: "Usuario actualizado exitosamente",
+        message: "Paciente actualizado exitosamente",
         data: actualizado,
     });
 });
@@ -96,6 +100,10 @@ app.put("/pacientes/:id", (req, res) => {
 app.get("/pacientes/:id/historial", (req, res) => {
     const id = req.params.id;
     const historial = historialPaciente(id);
+    if (!historial) return res.status(404).json({
+        success: false, 
+        message: "Paciente no tiene historial" 
+    });
     res.status(200).json({
         success: true,
         data: historial
@@ -110,7 +118,7 @@ app.post("/doctores", (req, res) => {
     const {nombre,especialidad, horarioInicio, horarioFin, diasDisponibles} = req.body;
     const doctores = obtenerDoctores();
     if (doctores.some(d => d.nombre === nombre && d.especialidad === especialidad)) {
-        return res.status(400).json({
+        return res.status(409).json({
             success: false,
             message:"El doctor ya existe con esa especialidad" 
         });
@@ -132,7 +140,7 @@ app.post("/doctores", (req, res) => {
 
     const nuevoDoctor = crearDoctor(nombre, especialidad, horarioInicio, horarioFin, diasDisponibles);
     if (!nuevoDoctor) {
-        return res.status(404).json({
+        return res.status(500).json({
             success: false,
             message: "No se pudo crear el doctor exitosamente",
         });
@@ -147,7 +155,10 @@ app.post("/doctores", (req, res) => {
 //Listar todos los doctores
 app.get("/doctores", (req, res) => {
     const doctores = obtenerDoctores();
-    
+    if (!doctores) return res.status(404).json({
+        success: false, 
+        message: "No se tienen registro de doctores." 
+    });
     res.status(200).json({
         success: true,
         data: doctores
@@ -275,7 +286,7 @@ app.post("/citas", (req, res) => {
     const cita  = agendarCita(pacienteId, doctorId, fecha, hora, motivo);
 
     if(!cita){
-        return res.status(404).json({
+        return res.status(500).json({
             success: false,
             message: "Ah ocurrido un error al guardar la cita"
         });
@@ -333,7 +344,7 @@ app.put("/citas/:id/cancelar", (req, res) => {
     }
 
     if(!cancelarCita(id)){
-        return res.status(404).json({
+        return res.status(500).json({
             success: false,
             message: "Ah ocurrido un error al cancelar la cita." 
         });
@@ -358,7 +369,6 @@ app.get("/citas/doctor/:doctorId", (req, res) => {
 
 // Notificacion - obtener citas próximas (siguientes 24 horas)
 app.get('/notificaciones/proximas',(req, res) => {
-    const id = req.params.doctorId;
     const citas = citasProximas();
     res.status(200).json({
         success: true,

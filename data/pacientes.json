@@ -22,5 +22,12 @@
     "telefono": "555-0303",
     "email": "ana.lopez@email.com",
     "fechaRegistro": "2025-03-10"
+  },
+  {
+    "id": "P004",
+    "nombre": "Jose arturo",
+    "telefono": "160-7585",
+    "email": "jose@email.com",
+    "fechaRegistro": "2025-11-15"
   }
 ]

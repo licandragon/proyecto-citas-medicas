@@ -43,5 +43,14 @@
     "hora": "10:30",
     "motivo": "Lunares",
     "estado": "cancelada"
+  },
+  {
+    "id": "C006",
+    "pacienteId": "P001",
+    "doctorId": "D003",
+    "fecha": "2025-12-03",
+    "hora": "10:00",
+    "motivo": "Lunares",
+    "estado": "programada"
   }
 ]
