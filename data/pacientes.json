@@ -2,8 +2,8 @@
   {
     "id": "P001",
     "nombre": "María González",
-    "edad": 35,
-    "telefono": "555-0101",
+    "edad": 4,
+    "telefono": "4564564545",
     "email": "saul@email.com",
     "fechaRegistro": "2025-01-15"
   },
@@ -26,8 +26,64 @@
   {
     "id": "P004",
     "nombre": "Jose arturo",
-    "telefono": "160-7585",
+    "telefono": "6461607585",
     "email": "jose@email.com",
-    "fechaRegistro": "2025-11-15"
+    "fechaRegistro": "2025-11-15",
+    "edad": 51
+  },
+  {
+    "id": "P005",
+    "nombre": "asdasd",
+    "telefono": "5156487894",
+    "email": "soli@gmail.com",
+    "fechaRegistro": "2025-12-05",
+    "edad": 50
+  },
+  {
+    "id": "P006",
+    "nombre": "dasdsd",
+    "telefono": "5484179875",
+    "email": "pepe@mgai.com",
+    "fechaRegistro": "2025-12-05",
+    "edad": 5
+  },
+  {
+    "id": "P007",
+    "nombre": "asdas",
+    "telefono": "7777777715",
+    "email": "asdasdsd@gna.com",
+    "fechaRegistro": "2025-12-05",
+    "edad": 15
+  },
+  {
+    "id": "P008",
+    "nombre": "asdasds",
+    "telefono": "5154898489",
+    "email": "asdad@fas.com",
+    "fechaRegistro": "2025-12-05",
+    "edad": 3
+  },
+  {
+    "id": "P009",
+    "nombre": "asdasd",
+    "telefono": "5848948878",
+    "email": "asdasdasdd@gma.com",
+    "fechaRegistro": "2025-12-05",
+    "edad": 4
+  },
+  {
+    "id": "P010",
+    "nombre": "saasdasdad",
+    "telefono": "4894878987",
+    "email": "asdad@k.com",
+    "fechaRegistro": "2025-12-05"
+  },
+  {
+    "id": "P011",
+    "nombre": "asddsad",
+    "edad": 1515,
+    "telefono": "48945645646",
+    "email": "asdad@gma.com",
+    "fechaRegistro": "2025-12-05"
   }
 ]

@@ -3,14 +3,10 @@
     "id": "D001",
     "nombre": "Dr. Carlos Méndez",
     "especialidad": "Cardiología",
-    "horarioInicio": "09:00",
-    "horarioFin": "17:00",
+    "horarioInicio": "02:57",
+    "horarioFin": "03:57",
     "diasDisponibles": [
-      "Lunes",
-      "Martes",
-      "Miércoles",
-      "Jueves",
-      "Viernes"
+      "Martes"
     ]
   },
   {
@@ -59,6 +55,16 @@
       "Martes",
       "Miércoles",
       "Viernes"
+    ]
+  },
+  {
+    "id": "D006",
+    "nombre": "asdasd",
+    "especialidad": "opo",
+    "horarioInicio": "04:03",
+    "horarioFin": "05:03",
+    "diasDisponibles": [
+      "Lunes"
     ]
   }
 ]

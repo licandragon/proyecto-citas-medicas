@@ -1,13 +1,14 @@
 const express = require('express')
+const cors = require('cors');
 const app = express()
 const PORT = process.env.PORT || 3000;
-
+app.use(cors());   
 app.use(express.json());
 
 app.use(express.urlencoded({extended: true}));
 
 const { obtenerPacientes, obtenerPacientePorId, crearPaciente, actualizarPaciente, historialPaciente } = require('./utils/pacientes');
-const { crearDoctor, obtenerDoctores, obtenerDoctorPorId, obtenerDoctoresPorEspecialidad, obtenerDoctoresDisponibles } = require('./utils/doctores');
+const { crearDoctor, actualizarDoctor,obtenerDoctores, obtenerDoctorPorId, obtenerDoctoresPorEspecialidad, obtenerDoctoresDisponibles,obtenerEspecialidades } = require('./utils/doctores');
 const { obtenerCitas, obtenerCitaPorId, agendarCita, cancelarCita, obtenerCitaPorDoctorId, citasProximas } = require('./utils/citas');
 
 //------------------Endpoints Pacientes------------------------------------------
@@ -99,11 +100,12 @@ app.put("/pacientes/:id", (req, res) => {
 // Ver historial de citas del paciente
 app.get("/pacientes/:id/historial", (req, res) => {
     const id = req.params.id;
-    const historial = historialPaciente(id);
-    if (!historial) return res.status(404).json({
+    const paciente = obtenerPacientePorId(id);
+    if (!paciente) return res.status(404).json({
         success: false, 
-        message: "Paciente no tiene historial" 
+        message: "No existe el paciente." 
     });
+    const historial = historialPaciente(id);
     res.status(200).json({
         success: true,
         data: historial
@@ -152,13 +154,53 @@ app.post("/doctores", (req, res) => {
     });
 });
 
+//Actualizar datos del paciente
+app.put("/doctores/:id", (req, res) => {
+    const id = req.params.id;
+    const {nombre, especialidad, horarioInicio, horarioFin,diasDisponibles} = req.body;
+    const doctores = obtenerDoctores();
+    const doctor = doctores.filter(d => d.nombre === nombre && d.especialidad === especialidad);
+    console.log(doctor[0].id);
+    console.log(id)
+    if (doctor[0].id !== id) {
+        return res.status(400).json({
+            success: false,
+            message:"Ya existe otro doctor con el mismo nombre y especialidad" 
+        });
+    }
+
+    if (!diasDisponibles || diasDisponibles.length === 0) {
+        return res.status(400).json({
+            success: false,
+            message:"Debe tener al menos un día disponible" 
+        });
+    }
+
+    if (horarioInicio >= horarioFin) {
+        return res.status(400).json({
+            success: false,
+            message:"Horario inválido (inicio >= fin)" 
+        });
+    }
+
+    const actualizado = actualizarDoctor(id, nombre, especialidad, horarioInicio, horarioFin,diasDisponibles)
+    if (!actualizado) {
+        return res.status(404).json({
+            success: false,
+            message: "Hubo un error al intentar actualizar al doctor, intenta nuevamente.",
+        });
+    }
+
+    res.status(200).json({
+        success: true,
+        message: "Doctor actualizado exitosamente",
+        data: actualizado,
+    });
+});
+
 //Listar todos los doctores
 app.get("/doctores", (req, res) => {
     const doctores = obtenerDoctores();
-    if (!doctores) return res.status(404).json({
-        success: false, 
-        message: "No se tienen registro de doctores." 
-    });
     res.status(200).json({
         success: true,
         data: doctores
@@ -213,6 +255,15 @@ app.get("/doctores/especialidad/:especialidad", (req, res) => {
     res.status(200).json({
         success: true,
         data: doctores
+    });
+});
+
+// Obtiene las especialidades de los doctores
+app.get("/especialidades", (req, res) => {
+    const especialidades = obtenerEspecialidades();
+    res.status(200).json({
+        success: true,
+        data: especialidades
     });
 });
 

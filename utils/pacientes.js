@@ -19,6 +19,7 @@ function crearPaciente(nombre, edad, telefono, email) {
     const nuevoPaciente = { 
         "id": id, 
         "nombre" : nombre, 
+        "edad": edad,
         "telefono" : telefono, 
         "email" : email, 
         "fechaRegistro": fechaRegistro

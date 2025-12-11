@@ -64,4 +64,48 @@ function crearDoctor(nombre, especialidad, horarioInicio, horarioFin, diasDispon
     return !escribirJSON(archivo, doctores)? false : nuevoDoctor;
 }
 
-module.exports = { obtenerDoctores, obtenerDoctorPorId, obtenerDoctoresPorEspecialidad, obtenerDoctoresDisponibles, crearDoctor };
+function actualizarDoctor(id, nombre, especialidad, horarioInicio, horarioFin,diasDisponibles){
+    const doctores = obtenerDoctores();
+    const index = doctores.findIndex((u) => u.id === id);
+
+    if(index === -1){
+        return false;
+    }
+
+    if (nombre){
+        doctores[index].nombre = nombre;
+    } 
+
+    if (especialidad){ 
+        doctores[index].especialidad = especialidad;
+    }
+
+    if (horarioInicio){
+        doctores[index].horarioInicio = horarioInicio;
+    } 
+
+    if (horarioFin){ 
+        doctores[index].horarioFin = horarioFin;
+    }
+
+    if (diasDisponibles){ 
+        doctores[index].diasDisponibles = diasDisponibles;
+    }
+
+    escribirJSON(archivo,doctores);
+    
+    return doctores[index];
+}
+function obtenerEspecialidades(){
+
+    const doctores = obtenerDoctores();
+    console.log(doctores)
+
+    const especialidades = [...new Set(doctores.map(doctor=> doctor.especialidad))];
+    console.log(especialidades);
+
+    return especialidades;
+
+}
+
+module.exports = { obtenerDoctores, actualizarDoctor,obtenerDoctorPorId, obtenerDoctoresPorEspecialidad, obtenerDoctoresDisponibles, crearDoctor, obtenerEspecialidades };
